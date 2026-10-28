@@ -5,7 +5,7 @@ import { sceneSVG, sceneStates } from "./scene.js";
 
 const profile = {
   email: "bagripriyanka572@gmail.com",
-  github: "https://github.com/PriyankaBagri/priyanka-portfolio",
+  github: "https://https://github.com/PriyankaBagri",
   githubUser: "PriyankaBagri",
   linkedin: "https://www.linkedin.com/in/priyanka-bagri-192006374/",
   leetcode: "https://leetcode.com/u/priyankabagri_/",
