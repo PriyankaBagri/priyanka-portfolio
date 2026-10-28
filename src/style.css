@@ -381,7 +381,7 @@ h2{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800;max-width:18ch}
 }
 
 /* ===== Design ===== */
-.design{background:var(--blush);padding-top:clamp(36px,4.5vw,56px)}
+.design{background:var(--blush)}
 .dsn-grid{display:grid;gap:var(--s3);margin-top:var(--s4)}
 .dsn{background:var(--white);padding:clamp(22px,3vw,36px);border-top:6px solid var(--pink)}
 .dsn:nth-child(2){border-top-color:var(--ink)}

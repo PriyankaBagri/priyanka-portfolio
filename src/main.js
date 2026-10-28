@@ -5,15 +5,15 @@ import { sceneSVG, sceneStates } from "./scene.js";
 
 const profile = {
   email: "bagripriyanka572@gmail.com",
-  github: "https://github.com/priyankacodes",
-  githubUser: "priyankacodes",
+  github: "https://github.com/PriyankaBagri/priyanka-portfolio",
+  githubUser: "PriyankaBagri",
   linkedin: "https://www.linkedin.com/in/priyanka-bagri-192006374/",
   leetcode: "https://leetcode.com/u/priyankabagri_/",
-  codeforces: "https://codeforces.com/profile/PriyankaBagri_",
+  codeforces: "https://codeforces.com/profile/priyankacodes",
   portfolio: "https://priyanka-portfolio-owgy.vercel.app/"
 };
 const ext = 'target="_blank" rel="noopener noreferrer"';
-const nav = [["home", "Home"], ["design", "Design"], ["about", "About"], ["education", "Education"], ["work", "Projects"], ["achievements", "Achievements"], ["contact", "Contact"]];
+const nav = [["home", "Home"], ["about", "About"], ["design", "Design"], ["education", "Education"], ["work", "Projects"], ["achievements", "Achievements"], ["contact", "Contact"]];
 
 
 /* ---------- Design showcase markup (data lives in designs.js) ---------- */
@@ -68,7 +68,7 @@ app.innerHTML = `
     <p class="hero-line">Building thoughtful digital experiences, one idea at a time.</p>
     <p class="hero-intro">I'm a student designer and developer. I like turning a vague idea into an interface someone can actually use, and I'm learning something new with every project.</p>
     <div class="hero-cta"><a class="btn btn-primary" href="#design">See my designs</a><a class="btn btn-ghost" href="#work">Projects</a><a class="btn btn-ghost" href="#about">My journey</a></div>
-    <p class="hero-social"><a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a><a href="${profile.linkedin}" ${ext} aria-label="Priyanka's LinkedIn profile (opens in a new tab)">LinkedIn</a></p>
+    <p class="hero-social"><a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a><a href="${profile.linkedin}" ${ext} aria-label="Priyanka's LinkedIn profile (opens in a new tab)">LinkedIn</a></p>
   </div>
 
   <div class="hero-scene" id="scene" data-state="arrive">
@@ -86,14 +86,6 @@ app.innerHTML = `
   </div>
 </section>
 
-<section id="design" class="design" aria-labelledby="design-title">
-  <div class="wrap">
-    <h2 id="design-title">Design showcase</h2>
-    <p class="section-sub">${designIntro}</p>
-    ${designs.length ? designMarkup() : ""}
-  </div>
-</section>
-
 <section id="about" class="about" aria-labelledby="about-title">
   <div class="wrap about-grid">
     <figure class="about-photo">
@@ -105,11 +97,19 @@ app.innerHTML = `
       <p class="lead">I'm in my second year of B.Tech in Information Technology. I learn best by building things I can put in front of people and seeing what works.</p>
       <p>Right now I'm working on data structures and algorithms, full-stack development and the basics of AI and machine learning. I practise problem solving on LeetCode and Codeforces, and I put what I learn into projects like CareerGraph.</p>
       <p>I care about the small decisions: what a screen asks of you first, how much text is too much, and what happens when something goes wrong. That is the part of the work I'd like to bring to GDG on Campus.</p>
-      <p class="about-link"><a href="#skills">See what I work with</a> · <a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">My GitHub</a></p>
+      <p class="about-link"><a href="#skills">See what I work with</a> · <a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">My GitHub</a></p>
       <figure class="about-strip">
         <picture><source srcset="/images/about-arch.webp" type="image/webp"><img src="/images/about-arch.jpg" width="1100" height="825" loading="lazy" alt="Priyanka smiling at the camera through an arched wooden frame in a café."></picture>
       </figure>
     </div>
+  </div>
+</section>
+
+<section id="design" class="design" aria-labelledby="design-title">
+  <div class="wrap">
+    <h2 id="design-title">Design showcase</h2>
+    <p class="section-sub">${designIntro}</p>
+    ${designs.length ? designMarkup() : ""}
   </div>
 </section>
 
@@ -194,13 +194,13 @@ app.innerHTML = `
       <a class="mail" href="mailto:${profile.email}">${profile.email}</a></div>
     <ul class="contact-links">
       <li><a href="${profile.linkedin}" ${ext}>LinkedIn</a></li>
-      <li><a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a></li>
+      <li><a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a></li>
       <li><a href="${cg.live}" ${ext}>CareerGraph live demo</a></li>
       <li><a href="${profile.leetcode}" ${ext}>LeetCode</a></li>
       <li><a href="${profile.codeforces}" ${ext}>Codeforces</a></li>
     </ul>
   </div>
-  <footer class="wrap foot"><span>Priyanka Bagri · B.Tech IT, Heritage Institute of Technology</span><span><a href="${profile.github}" ${ext} aria-label="GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub</a> · <a href="#top">Back to top</a></span></footer>
+  <footer class="wrap foot"><span>Priyanka Bagri · B.Tech IT, Heritage Institute of Technology</span><span><a href="${profile.github}" ${ext} aria-label="Portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub</a> · <a href="#top">Back to top</a></span></footer>
 </section>
 </main>`;
 

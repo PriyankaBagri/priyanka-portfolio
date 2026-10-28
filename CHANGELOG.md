@@ -1,5 +1,11 @@
 # Changelog
 
+## Corrections after review (October 2026)
+
+- **Section order:** Hero, About, **Design**, Education, Projects, Skills, Achievements, Contact. The Design section now follows About (it previously followed the hero). Nav order matches. Section IDs are unchanged. The extra top-padding tweak that tucked Design under the hero was removed.
+- **Poster images:** replaced with the supplied watermark-free files for four posters: Beyond the Code (second version), The Internet Is Not Real, The Future Is Under Construction, Ctrl + Alt + Create. For each, `<name>-original.png` is the supplied PNG, byte for byte. `<name>.webp`, `<name>-1100.webp` and `<name>-640.webp` were generated from that PNG at the existing display sizes (the lightbox copy is the supplied 1125x1398 size). The first poster, Beyond the Code, was not supplied and is unchanged. Filenames, paths and card order are unchanged.
+- **Profile links:** GitHub buttons now go to `https://github.com/PriyankaBagri/priyanka-portfolio` (the old value used the Codeforces handle). Codeforces links now go to `https://codeforces.com/profile/priyankacodes`. The visible GitHub label now shows `@PriyankaBagri`. Project repository links were already correct and are unchanged.
+
 ## Portfolio refinement (October 2026)
 
 ### Changed files

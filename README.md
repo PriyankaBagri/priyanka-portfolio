@@ -22,7 +22,7 @@ Requires Node 20.19 or newer (or Node 22.12+), as required by Vite 7. While `npm
 
 ## Page order
 
-Home, **Design**, About, Education, Projects, Skills, Achievements, Contact. The Design showcase sits directly after the hero so the poster work is the first thing a reviewer reaches. The order is set in `src/main.js` (the `nav` list and the section order inside `app.innerHTML`).
+Home, About, **Design**, Education, Projects, Skills, Achievements, Contact. The Design showcase sits directly after the About section. The order is set in `src/main.js` (the `nav` list and the section order inside `app.innerHTML`).
 
 ## Design showcase and Figma links
 
