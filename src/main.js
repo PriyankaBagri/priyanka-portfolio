@@ -5,22 +5,38 @@ import { sceneSVG, sceneStates } from "./scene.js";
 
 const profile = {
   email: "bagripriyanka572@gmail.com",
-  github: "https://github.com/priyankacodes",
-  githubUser: "priyankacodes",
+  github: "https://github.com/PriyankaBagri/priyanka-portfolio",
+  githubUser: "PriyankaBagri",
   linkedin: "https://www.linkedin.com/in/priyanka-bagri-192006374/",
   leetcode: "https://leetcode.com/u/priyankabagri_/",
-  codeforces: "https://codeforces.com/profile/PriyankaBagri_",
+  codeforces: "https://codeforces.com/profile/priyankacodes",
   portfolio: "https://priyanka-portfolio-owgy.vercel.app/"
 };
 const ext = 'target="_blank" rel="noopener noreferrer"';
-const nav = [["home", "Home"], ["about", "About"], ["education", "Education"], ["work", "Projects"], ["achievements", "Achievements"], ["design", "Design"], ["contact", "Contact"]];
+const nav = [["home", "Home"], ["about", "About"], ["design", "Design"], ["education", "Education"], ["work", "Projects"], ["achievements", "Achievements"], ["contact", "Contact"]];
 
 
 /* ---------- Design showcase markup (data lives in designs.js) ---------- */
 const esc = v => String(v ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-const designBtn = (d, sizes) => `<button type="button" class="zoom" data-group="dsn" data-full="${esc(d.full || d.image)}" data-alt="${esc(d.alt || d.title)}" data-cap="${esc(d.title + (d.brief ? ": " + d.brief : ""))}" data-original="${esc(d.original || "")}" aria-label="View larger: ${esc(d.title)}"><img src="${d.image}"${d.small ? ` srcset="${d.small} 640w, ${d.image} 1100w" sizes="${sizes}"` : ""} alt="${esc(d.alt || d.title)}" width="${d.width || 1200}" height="${d.height || 800}" loading="lazy" decoding="async"><span class="zoom-hint" aria-hidden="true">View larger</span></button>`;
+const designBtn = (d, sizes) => `<button type="button" class="zoom" data-group="dsn" data-full="${esc(d.full || d.image)}" data-alt="${esc(d.alt || d.title)}" data-cap="${esc(d.title + (d.brief ? ": " + d.brief : ""))}" data-original="${esc(d.original || "")}" data-figma="${esc(figmaHref(d))}" aria-label="View larger: ${esc(d.title)}"><img src="${d.image}"${d.small ? ` srcset="${d.small} 640w, ${d.image} 1100w" sizes="${sizes}"` : ""} alt="${esc(d.alt || d.title)}" width="${d.width || 1200}" height="${d.height || 800}" loading="lazy" decoding="async"><span class="zoom-hint" aria-hidden="true">View larger</span></button>`;
 const designTags = d => `<span class="dsn-tags">${[d.kind, d.year].filter(Boolean).map(t => `<em>${esc(t)}</em>`).join("")}${d.status ? `<em class="hl">${esc(d.status)}</em>` : ""}</span>`;
-const designNotes = d => `${d.brief ? `<p>${esc(d.brief)}</p>` : ""}${d.tools && d.tools.length ? `<small>Made with ${d.tools.map(esc).join(", ")}</small>` : ""}${d.link ? `<a href="${esc(d.link)}" ${ext}>View full piece</a>` : ""}`;
+// A Figma link is shown only when designs.js holds a real https://figma.com (or www.figma.com) URL.
+// Anything else (empty, a typo, an image path) is ignored, so a placeholder can never appear as a link.
+const figmaHref = d => {
+  const raw = String(d.figmaUrl || "").trim();
+  if (!raw) return "";
+  try {
+    const u = new URL(raw);
+    const host = u.hostname.toLowerCase();
+    return u.protocol === "https:" && (host === "figma.com" || host === "www.figma.com") && u.pathname.length > 1 ? u.href : "";
+  } catch { return ""; }
+};
+const figmaAction = d => figmaHref(d) ? `<a class="dsn-figma" href="${esc(figmaHref(d))}" ${ext} aria-label="View ${esc(d.title)} in Figma (opens in a new tab)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 24a4 4 0 0 0 4-4v-4H8a4 4 0 0 0 0 8Zm-4-12a4 4 0 0 1 4-4h4v8H8a4 4 0 0 1-4-4Zm0-8a4 4 0 0 1 4-4h4v8H8a4 4 0 0 1-4-4Zm8-4h4a4 4 0 0 1 0 8h-4V0Zm8 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>View in Figma</a>` : "";
+const designNotes = d => `${d.brief ? `<p>${esc(d.brief)}</p>` : ""}${d.tools && d.tools.length ? `<small>Made with ${d.tools.map(esc).join(", ")}</small>` : ""}${d.link ? `<a href="${esc(d.link)}" ${ext}>View full piece</a>` : ""}${figmaAction(d)}`;
+if (import.meta.env.DEV) {
+  const missing = designs.filter(d => !figmaHref(d)).map(d => d.title);
+  if (missing.length) console.info(`[designs] ${missing.length} design(s) still need a Figma link in src/designs.js:\n - ${missing.join("\n - ")}`);
+}
 function designMarkup() {
   const [lead, ...others] = designs;
   // Pieces that share the featured piece's group sit beside it; everything else goes in the gallery wall.
@@ -51,8 +67,8 @@ app.innerHTML = `
     <h1 id="hero-title">Priyanka Bagri</h1>
     <p class="hero-line">Building thoughtful digital experiences, one idea at a time.</p>
     <p class="hero-intro">I'm a student designer and developer. I like turning a vague idea into an interface someone can actually use, and I'm learning something new with every project.</p>
-    <div class="hero-cta"><a class="btn btn-primary" href="#work">Explore my work</a><a class="btn btn-ghost" href="#about">My journey</a></div>
-    <p class="hero-social"><a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a><a href="${profile.linkedin}" ${ext} aria-label="Priyanka's LinkedIn profile (opens in a new tab)">LinkedIn</a></p>
+    <div class="hero-cta"><a class="btn btn-primary" href="#design">See my designs</a><a class="btn btn-ghost" href="#work">Projects</a><a class="btn btn-ghost" href="#about">My journey</a></div>
+    <p class="hero-social"><a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a><a href="${profile.linkedin}" ${ext} aria-label="Priyanka's LinkedIn profile (opens in a new tab)">LinkedIn</a></p>
   </div>
 
   <div class="hero-scene" id="scene" data-state="arrive">
@@ -81,11 +97,19 @@ app.innerHTML = `
       <p class="lead">I'm in my second year of B.Tech in Information Technology. I learn best by building things I can put in front of people and seeing what works.</p>
       <p>Right now I'm working on data structures and algorithms, full-stack development and the basics of AI and machine learning. I practise problem solving on LeetCode and Codeforces, and I put what I learn into projects like CareerGraph.</p>
       <p>I care about the small decisions: what a screen asks of you first, how much text is too much, and what happens when something goes wrong. That is the part of the work I'd like to bring to GDG on Campus.</p>
-      <p class="about-link"><a href="#skills">See what I work with</a> · <a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">My GitHub</a></p>
+      <p class="about-link"><a href="#skills">See what I work with</a> · <a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">My GitHub</a></p>
       <figure class="about-strip">
         <picture><source srcset="/images/about-arch.webp" type="image/webp"><img src="/images/about-arch.jpg" width="1100" height="825" loading="lazy" alt="Priyanka smiling at the camera through an arched wooden frame in a café."></picture>
       </figure>
     </div>
+  </div>
+</section>
+
+<section id="design" class="design" aria-labelledby="design-title">
+  <div class="wrap">
+    <h2 id="design-title">Design showcase</h2>
+    <p class="section-sub">${designIntro}</p>
+    ${designs.length ? designMarkup() : ""}
   </div>
 </section>
 
@@ -153,14 +177,6 @@ app.innerHTML = `
   </div>
 </section>
 
-<section id="design" class="design" aria-labelledby="design-title">
-  <div class="wrap">
-    <h2 id="design-title">Design showcase</h2>
-    <p class="section-sub">${designIntro}</p>
-    ${designs.length ? designMarkup() : ""}
-  </div>
-</section>
-
 <section id="achievements" class="ach" aria-labelledby="ach-title">
   <div class="wrap">
     <h2 id="ach-title">Hackathons, competitions and certificates</h2>
@@ -178,13 +194,13 @@ app.innerHTML = `
       <a class="mail" href="mailto:${profile.email}">${profile.email}</a></div>
     <ul class="contact-links">
       <li><a href="${profile.linkedin}" ${ext}>LinkedIn</a></li>
-      <li><a href="${profile.github}" ${ext} aria-label="Priyanka's GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a></li>
+      <li><a href="${profile.github}" ${ext} aria-label="Priyanka's portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub · @${profile.githubUser}</a></li>
       <li><a href="${cg.live}" ${ext}>CareerGraph live demo</a></li>
       <li><a href="${profile.leetcode}" ${ext}>LeetCode</a></li>
       <li><a href="${profile.codeforces}" ${ext}>Codeforces</a></li>
     </ul>
   </div>
-  <footer class="wrap foot"><span>Priyanka Bagri · B.Tech IT, Heritage Institute of Technology</span><span><a href="${profile.github}" ${ext} aria-label="GitHub profile, ${profile.githubUser} (opens in a new tab)">GitHub</a> · <a href="#top">Back to top</a></span></footer>
+  <footer class="wrap foot"><span>Priyanka Bagri · B.Tech IT, Heritage Institute of Technology</span><span><a href="${profile.github}" ${ext} aria-label="Portfolio repository on GitHub, ${profile.githubUser} (opens in a new tab)">GitHub</a> · <a href="#top">Back to top</a></span></footer>
 </section>
 </main>`;
 
@@ -266,13 +282,23 @@ if (!reduce) document.querySelector(".steps").classList.add("rise");
 new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("seen"); o.unobserve(e.target); } }), { threshold: 0.25 })
   .observe(document.querySelector(".steps"));
 
+/* ---------- Scroll reveal for the design gallery (wrappers only, never the poster files) ---------- */
+if (!reduce && "IntersectionObserver" in window) {
+  const designSection = document.querySelector("#design");
+  const items = [...designSection.querySelectorAll(".dsn-feature figure, .dsn-piece")];
+  const seenOnce = (es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("seen"); o.unobserve(e.target); } });
+  const io = new IntersectionObserver(seenOnce, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(el => { el.classList.add("reveal"); io.observe(el); });
+  new IntersectionObserver(seenOnce, { threshold: 0.15 }).observe(designSection);
+}
+
 /* ---------- Image preview (CareerGraph screens and design work) ---------- */
 const dlg = document.createElement("dialog");
 dlg.className = "lightbox";
 dlg.setAttribute("aria-label", "Image preview");
-dlg.innerHTML = `<div class="lb-in"><img alt=""><p class="lb-cap"></p></div><div class="lb-bar"><button type="button" class="lb-prev" aria-label="Previous image">Previous</button><button type="button" class="lb-next" aria-label="Next image">Next</button><a class="lb-orig" target="_blank" rel="noopener noreferrer" hidden>Open original file</a><button type="button" class="lb-close">Close</button></div>`;
+dlg.innerHTML = `<div class="lb-in"><img alt=""><p class="lb-cap"></p></div><div class="lb-bar"><button type="button" class="lb-prev" aria-label="Previous image">Previous</button><button type="button" class="lb-next" aria-label="Next image">Next</button><a class="lb-orig" target="_blank" rel="noopener noreferrer" hidden>Open original file</a><a class="lb-figma" target="_blank" rel="noopener noreferrer" hidden>View in Figma</a><button type="button" class="lb-close">Close</button></div>`;
 document.body.append(dlg);
-const lbImg = dlg.querySelector("img"), lbCap = dlg.querySelector(".lb-cap"), lbOrig = dlg.querySelector(".lb-orig");
+const lbImg = dlg.querySelector("img"), lbCap = dlg.querySelector(".lb-cap"), lbOrig = dlg.querySelector(".lb-orig"), lbFigma = dlg.querySelector(".lb-figma");
 let group = [], gi = 0, opener = null;
 function showImg(i) {
   gi = (i + group.length) % group.length;
@@ -281,6 +307,7 @@ function showImg(i) {
   dlg.querySelector(".lb-prev").hidden = dlg.querySelector(".lb-next").hidden = group.length < 2;
   if (group.length > 1) [group[(gi + 1) % group.length], group[(gi - 1 + group.length) % group.length]].forEach(n => { new Image().src = n.dataset.full; });
   lbOrig.hidden = !b.dataset.original; if (b.dataset.original) lbOrig.href = b.dataset.original;
+  lbFigma.hidden = !b.dataset.figma; if (b.dataset.figma) lbFigma.href = b.dataset.figma; else lbFigma.removeAttribute("href");
 }
 document.addEventListener("click", e => {
   const b = e.target.closest(".zoom");

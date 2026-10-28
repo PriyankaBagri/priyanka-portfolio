@@ -13,11 +13,19 @@
 //     brief: "One or two honest sentences about what it is.",
 //     status: "Personal concept",                    // be honest: personal / coursework / client
 //     tools: [],                                     // only tools you really used
-//     link: "",                                      // optional Behance / Figma / live URL
+//     link: "",                                      // optional Behance / live URL (shown as "View full piece")
+//     figmaUrl: "",                                  // optional, see FIGMA LINKS below
 //     small: "/images/design/x-640.webp",           // optional 640px copy, used for phones (srcset)
 //     group: "Campaign name"                         // optional: pieces sharing a group as the FIRST piece
 //                                                    // are shown together in the featured block
 //   }
+//
+// FIGMA LINKS
+// Leave figmaUrl as "" until the design really is in Figma. Items with an empty figmaUrl show no Figma button.
+// To add one: upload the original poster file to Figma, open Share > Copy link, and paste the
+// https://www.figma.com/... address between the quotes. Only genuine https://figma.com or
+// https://www.figma.com links are shown; anything else is ignored. Never paste an image path here.
+// While running `npm run dev`, the browser console lists the designs that are still missing a link.
 //
 // Order matters: the first piece is the featured one, the rest fill the gallery in order,
 // and the preview (lightbox) steps through them in the same order.
@@ -37,7 +45,8 @@ export const designs = [
     brief: "An A3 poster for a student developer meetup. The piece itself is labelled an independent campaign concept: a bold type-led headline over an isometric desk scene, with the line \u201cBuild. Experiment. Connect.\u201d",
     status: "Personal concept",
     tools: [],
-    link: ""
+    link: "",
+    figmaUrl: ""
   },
   {
     title: "Beyond the Code, second version",
@@ -53,6 +62,7 @@ export const designs = [
     status: "Personal concept",
     tools: [],
     link: "",
+    figmaUrl: "",
     group: "Beyond the Code"
   },
   {
@@ -68,7 +78,8 @@ export const designs = [
     brief: "A type-led poster about screens and perception, with a tiny figure climbing a staircase that runs out of a phone. The poster calls itself an experiment in perception.",
     status: "", // REVIEW: add a label (personal / coursework / client) once confirmed
     tools: [],
-    link: ""
+    link: "",
+    figmaUrl: ""
   },
   {
     title: "The Future Is Under Construction",
@@ -83,7 +94,8 @@ export const designs = [
     brief: "A poster for student builders, developers and creators: glossy 3D lettering with tiny construction workers still assembling the future.",
     status: "", // REVIEW: add a label (personal / coursework / client) once confirmed
     tools: [],
-    link: ""
+    link: "",
+    figmaUrl: ""
   },
   {
     title: "Ctrl + Alt + Create",
@@ -98,7 +110,8 @@ export const designs = [
     brief: "A poster for a creative technology meetup: one keyboard key opens onto a tiny city, with the line \u201cPress a key. Change a world.\u201d",
     status: "", // REVIEW: add a label (personal / coursework / client) once confirmed
     tools: [],
-    link: ""
+    link: "",
+    figmaUrl: ""
   }
 ];
 
