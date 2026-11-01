@@ -70,7 +70,7 @@ export const earlier = [
     kind: "AI · education",
     text: "A concept for a more interactive learning platform. Built with React and TypeScript.",
     github: "https://github.com/PriyankaBagri/edubridge",
-    live: "https://edubridge-dusky-phi.vercel.app/"
+    live: ""
   }
 ];
 
